@@ -72,14 +72,14 @@ namespace HelpDeskWeb.Controllers
 
             if (result.Succeeded)
             {
-               var roleExists = await roleManager.RoleExistsAsync("User");
+               var roleExists = await roleManager.RoleExistsAsync("Usuario");
                 if (!roleExists)
                 {
-                    var role = new IdentityRole("User");
+                    var role = new IdentityRole("Usuario");
                     await roleManager.CreateAsync(role);
                 }
                
-            await userManager.AddToRoleAsync(user, "User");
+            await userManager.AddToRoleAsync(user, "Usuario");
             await signInManager.SignInAsync(user, isPersistent: false);
                 return RedirectToAction("Login", "Account");
             }

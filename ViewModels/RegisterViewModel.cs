@@ -9,19 +9,17 @@ namespace HelpDeskWeb.ViewModels
 
         [Required(ErrorMessage = "Email requerido")]
         [EmailAddress]
-
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Contraseña requerida")]
-        [StringLength(40, MinimumLength =8, ErrorMessage = "Minimo 8 caracteres")]
+        [StringLength(40, MinimumLength = 8, ErrorMessage = "Minimo 8 caracteres")]
         [DataType(DataType.Password)]
-        [Compare("Confirm Password", ErrorMessage = "No coincide")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Requiere confirmar contraseña")]
         [DataType(DataType.Password)]
-        [Display(Name ="Confirma contraseña")]
+        [Display(Name = "Confirma contraseña")]
+        [Compare("Password", ErrorMessage = "Las contraseñas no coinciden")]
         public string ConfirmPassword { get; set; }
-
     }
 }

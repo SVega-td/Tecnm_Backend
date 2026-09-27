@@ -18,13 +18,13 @@ namespace HelpDeskWeb.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrador")]
         public IActionResult Admin()
         {
             return View();
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Usuario")]
         public IActionResult User()
         {
             return View();

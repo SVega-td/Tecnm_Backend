@@ -29,6 +29,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     options.Lockout.MaxFailedAccessAttempts = 5;
 })
     .AddEntityFrameworkStores<AppDbContext>()
+    .AddRoles<IdentityRole>()
     .AddDefaultTokenProviders();
 
 var app = builder.Build();
