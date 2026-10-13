@@ -5,11 +5,12 @@ namespace HelpDeskWeb.Data
 {
     public class AppDbContext : IdentityDbContext<User>
     {
-        public AppDbContext(DbContextOptions options) : base(options)
-
-        {
-
+        public DbSet<TicketStatus> TicketStatus { get; set; }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        { 
         }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -24,6 +25,18 @@ namespace HelpDeskWeb.Data
             builder.Entity<User>()
                     .Property(u => u.UpdatedAt)
                     .HasDefaultValueSql("GETUTCDATE()");  // SQL Server
+
+            builder.Entity<TicketStatus>()
+                    .Property(u => u.CreatedAt)
+                    .HasDefaultValueSql("GETUTCDATE()");  
+
+            builder.Entity<TicketStatus>()
+                    .Property(u => u.UpdatedAt)
+                    .HasDefaultValueSql("GETUTCDATE()"); 
+            
+            builder.Entity<TicketStatus>()
+                    .Property(u => u.Name)      
+                    .IsRequired();
         }
     }
 }

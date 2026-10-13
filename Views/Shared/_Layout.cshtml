@@ -29,7 +29,24 @@
                         @if (User.IsInRole("Administrador"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Home" asp-action="Admin">Admin</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Admin">Admin</a>
+                            </li>
+                                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-dark" href="#" id="catalogosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Catálogos</a>
+                                    <ul class="dropdown-menu" aria-labelledby="catalogosDropdown">
+                                        <li>
+                                            <a class="dropdown-item" asp-area="" asp-controller="TicketStatus" asp-action="Index">Status</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dropdown
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-controller="TicketStatus" asp-action="Index">Ticket Status</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
                             </li>
                         }
                         @if (User.IsInRole("Usuario"))
