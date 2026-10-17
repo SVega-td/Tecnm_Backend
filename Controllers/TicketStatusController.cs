@@ -20,13 +20,14 @@ namespace HelpDeskWeb.Controllers
             return View(ticketStatusList);
         }
 
-
+        // 1. Mostrar formulario de creación
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
+        // 2. Guardar el nuevo registro
         [HttpPost]
         public async Task<IActionResult> Create(TicketStatus ticketStatus)
         {
@@ -39,18 +40,7 @@ namespace HelpDeskWeb.Controllers
             return View(ticketStatus);
         }
 
-
-        [HttpGet]
-        public IActionResult Create(int id)
-        {
-            var ticketStatus = _appDbContext.TicketStatus.Find(id);
-            if (ticketStatus == null)
-            {
-                return NotFound();
-            }
-            return View(ticketStatus);
-        }
-
+        // 3. Mostrar formulario de edición
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -62,6 +52,7 @@ namespace HelpDeskWeb.Controllers
             return View(ticketStatus);
         }
 
+        // 4. Guardar los cambios de la edición
         [HttpPost]
         public async Task<IActionResult> Edit(TicketStatus ticketStatus)
         {
@@ -74,6 +65,7 @@ namespace HelpDeskWeb.Controllers
             return View(ticketStatus);
         }
 
+        // 5. Eliminar un registro
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
