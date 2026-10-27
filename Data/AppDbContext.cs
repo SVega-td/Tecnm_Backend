@@ -7,6 +7,8 @@ namespace HelpDeskWeb.Data
     {
         public DbSet<TicketStatus> TicketStatus { get; set; }
         public DbSet<TicketPriority> TicketPriorities { get; set; }
+        public object tickets { get; internal set; }
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         { 
         }

@@ -5,7 +5,7 @@ namespace HelpDeskWeb.ViewModels
     public class LoginViewModel
     {
         [Required (ErrorMessage = "Email requerido")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Formato de email no válido")]
 
         public string Email { get; set; }
 
