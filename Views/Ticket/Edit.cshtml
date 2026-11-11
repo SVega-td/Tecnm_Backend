@@ -1,0 +1,60 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@model HelpDeskWeb.ViewModels.EditTicketViewModel
+
+@{
+    ViewData["Title"] = "Editar Ticket";
+}
+
+<h1>Editar Ticket</h1>
+<p class="text-muted">@Model.TicketNumber — @Model.Title</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-controller="Ticket" asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="StatusId" class="form-label"></label>
+                <select asp-for="StatusId" asp-items="(SelectList)ViewBag.Statuses" class="form-select">
+                    <option value="">-- Sin estado --</option>
+                </select>
+                <span asp-validation-for="StatusId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="PriorityId" class="form-label"></label>
+                <select asp-for="PriorityId" asp-items="(SelectList)ViewBag.Priorities" class="form-select">
+                    <option value="">-- Sin prioridad --</option>
+                </select>
+                <span asp-validation-for="PriorityId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="AssignedToId" class="form-label"></label>
+                <select asp-for="AssignedToId" asp-items="(SelectList)ViewBag.Admins" class="form-select">
+                    <option value="">-- Sin asignar --</option>
+                </select>
+                <span asp-validation-for="AssignedToId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DueDate" class="form-label"></label>
+                <input asp-for="DueDate" class="form-control" type="date" />
+                <span asp-validation-for="DueDate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                <a asp-controller="Ticket" asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

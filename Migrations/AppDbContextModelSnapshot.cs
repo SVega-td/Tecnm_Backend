@@ -17,10 +17,82 @@ namespace HelpDeskWeb.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.11")
+                .HasAnnotation("ProductVersion", "10.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("HelpDeskWeb.Models.Ticket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AssignedToId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ClosedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ClosedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("PriorityId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ResolvedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ResolvedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("StatusId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TicketNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssignedToId");
+
+                    b.HasIndex("ClosedById");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("PriorityId");
+
+                    b.HasIndex("ResolvedById");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("Tickets");
+                });
 
             modelBuilder.Entity("HelpDeskWeb.Models.TicketPriority", b =>
                 {
@@ -282,6 +354,45 @@ namespace HelpDeskWeb.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("HelpDeskWeb.Models.Ticket", b =>
+                {
+                    b.HasOne("HelpDeskWeb.Models.User", "AssignedTo")
+                        .WithMany()
+                        .HasForeignKey("AssignedToId");
+
+                    b.HasOne("HelpDeskWeb.Models.User", "ClosedBy")
+                        .WithMany()
+                        .HasForeignKey("ClosedById");
+
+                    b.HasOne("HelpDeskWeb.Models.User", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+
+                    b.HasOne("HelpDeskWeb.Models.TicketPriority", "Priority")
+                        .WithMany()
+                        .HasForeignKey("PriorityId");
+
+                    b.HasOne("HelpDeskWeb.Models.User", "ResolvedBy")
+                        .WithMany()
+                        .HasForeignKey("ResolvedById");
+
+                    b.HasOne("HelpDeskWeb.Models.TicketStatus", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId");
+
+                    b.Navigation("AssignedTo");
+
+                    b.Navigation("ClosedBy");
+
+                    b.Navigation("CreatedBy");
+
+                    b.Navigation("Priority");
+
+                    b.Navigation("ResolvedBy");
+
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

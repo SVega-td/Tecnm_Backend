@@ -1,0 +1,59 @@
+﻿@model List<HelpDeskWeb.Models.Ticket>
+
+@{
+    ViewData["Title"] = "Mis Tickets";
+}
+
+<h1>Mis Tickets</h1>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<div class="row">
+    <div class="col-12">
+        <a asp-controller="Ticket" asp-action="CreateUserTicket" class="btn btn-primary">Crear Ticket</a>
+
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Ticket</th>
+                    <th>Título</th>
+                    <th>Estado</th>
+                    <th>Prioridad</th>
+                    <th>Creado</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.TicketNumber</td>
+                        <td>@item.Title</td>
+                        <td>@(item.Status?.Name ?? "Sin estado")</td>
+                        <td>@(item.Priority?.Name ?? "Sin prioridad")</td>
+                        <td>@item.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>
+                            <a asp-controller="Ticket" asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Ver</a>
+                            <a asp-controller="Ticket" asp-action="EditUserTicket" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Editar</a>
+
+                            <form asp-controller="Ticket" asp-action="DeleteUserTicket" method="post" class="d-inline"
+                                  onsubmit="return confirm('¿Seguro que deseas eliminar este ticket?');">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Aún no has creado tickets.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

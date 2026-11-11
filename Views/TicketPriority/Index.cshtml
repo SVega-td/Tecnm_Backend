@@ -20,8 +20,8 @@
                 {
                     <tr>
                         <td>@priority.Name</td>
-                        <td>@priority.CreatedAT</td>
-                        <td>@priority.UpdatedAT</td>
+                        <td>@priority.CreatedAt</td>
+                        <td>@priority.UpdatedAt</td>
                         <td>
                             <a asp-controller="PriorityTicket" asp-action="Edit" asp-route-id="@priority.Id" class="btn btn-primary">Editar</a>
                             <form asp-controller="PriorityTicket" asp-action="Delete" method="post" class="d-inline" onsubmit="return confirm('¿Seguro que deseas eliminar este registro?');">

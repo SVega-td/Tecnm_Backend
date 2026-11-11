@@ -25,7 +25,7 @@ namespace HelpDeskWeb.Controllers
         }
 
         [Authorize(Roles = "Usuario")]
-        public IActionResult User()
+        public new IActionResult User()
         {
             return View();
         }

@@ -1,0 +1,50 @@
+﻿@model HelpDeskWeb.Models.Ticket
+
+@{
+    ViewData["Title"] = "Detalle de Ticket";
+    var esAdmin = User.IsInRole("Administrador");
+}
+
+<h1>Detalle de Ticket</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Title (@Model.TicketNumber)</h5>
+        <p class="card-text">@Model.Description</p>
+        <dl class="row">
+            <dt class="col-sm-3">Estado</dt>
+            <dd class="col-sm-9">@(Model.Status?.Name ?? "Sin estado")</dd>
+
+            <dt class="col-sm-3">Prioridad</dt>
+            <dd class="col-sm-9">@(Model.Priority?.Name ?? "Sin prioridad")</dd>
+
+            <dt class="col-sm-3">Asignado a</dt>
+            <dd class="col-sm-9">@(Model.AssignedTo?.FullName ?? "Sin asignar")</dd>
+
+            <dt class="col-sm-3">Creado por</dt>
+            <dd class="col-sm-9">@Model.CreatedBy?.FullName</dd>
+
+            <dt class="col-sm-3">Creado</dt>
+            <dd class="col-sm-9">@Model.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</dd>
+
+            <dt class="col-sm-3">Fecha límite</dt>
+            <dd class="col-sm-9">@(Model.DueDate?.ToString("dd/MM/yyyy") ?? "—")</dd>
+
+            <dt class="col-sm-3">Resuelto por</dt>
+            <dd class="col-sm-9">@(Model.ResolvedBy?.FullName ?? "—")</dd>
+
+            <dt class="col-sm-3">Cerrado por</dt>
+            <dd class="col-sm-9">@(Model.ClosedBy?.FullName ?? "—")</dd>
+        </dl>
+
+        @if (esAdmin)
+        {
+            <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Editar</a>
+            <a asp-controller="Ticket" asp-action="Index" class="btn btn-secondary">Regresar</a>
+        }
+        else
+        {
+            <a asp-controller="Ticket" asp-action="MyTickets" class="btn btn-secondary">Regresar</a>
+        }
+    </div>
+</div>

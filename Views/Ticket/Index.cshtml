@@ -1,0 +1,50 @@
+﻿@model List<HelpDeskWeb.Models.Ticket>
+
+@{
+    ViewData["Title"] = "Tickets";
+}
+
+<h1>Tickets</h1>
+
+<div class="row">
+    <div class="col-12">
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Ticket</th>
+                    <th>Título</th>
+                    <th>Estado</th>
+                    <th>Prioridad</th>
+                    <th>Creado por</th>
+                    <th>Asignado a</th>
+                    <th>Creado</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.TicketNumber</td>
+                        <td>@item.Title</td>
+                        <td>@(item.Status?.Name ?? "Sin estado")</td>
+                        <td>@(item.Priority?.Name ?? "Sin prioridad")</td>
+                        <td>@item.CreatedBy?.FullName</td>
+                        <td>@(item.AssignedTo?.FullName ?? "Sin asignar")</td>
+                        <td>@item.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>
+                            <a asp-controller="Ticket" asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary btn-sm">Ver</a>
+                            <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Editar</a>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="8" class="text-center text-muted">No hay tickets registrados.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -15,23 +15,21 @@ namespace HelpDeskWeb.Models
 
         public string Description { get; set; } = string.Empty;
 
-        //Relacion opcional a TicketStatus
-        public int? StstusId { get; set; }
-
+        // Relación opcional a TicketStatus
+        public int? StatusId { get; set; }
         public TicketStatus? Status { get; set; }
 
-        //Relacion opcional a TicketPriority
+        // Relación opcional a TicketPriority
         public int? PriorityId { get; set; }
-
         public TicketPriority? Priority { get; set; }
 
-        public DateTime CreatedAT { get; set; } = DateTime.Now;
-        public DateTime? UpdateAT { get; set; }
-        public DateTime? ResolvedAT { get; set; }
-        public DateTime? CloseAT { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedAt { get; set; }
+        public DateTime? ResolvedAt { get; set; }
+        public DateTime? ClosedAt { get; set; }
         public DateTime? DueDate { get; set; }
 
-        //Autor y ralciones a usuarios -todas opcionales
+        // Autor y relaciones a usuarios (todas opcionales)
         public string? CreatedById { get; set; }
         public string? AssignedToId { get; set; }
         public string? ResolvedById { get; set; }
@@ -44,10 +42,9 @@ namespace HelpDeskWeb.Models
         public User? AssignedTo { get; set; }
 
         [ForeignKey(nameof(ResolvedById))]
-        public User? ResoledBy { get; set; }
+        public User? ResolvedBy { get; set; }
 
         [ForeignKey(nameof(ClosedById))]
         public User? ClosedBy { get; set; }
-
     }
 }

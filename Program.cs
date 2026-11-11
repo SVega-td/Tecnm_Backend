@@ -1,9 +1,13 @@
 using HelpDeskWeb.Commands;
 using HelpDeskWeb.Data;
 using HelpDeskWeb.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Runtime.ConstrainedExecution;
+using System.Security.Claims;
+using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -31,6 +35,27 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     .AddEntityFrameworkStores<AppDbContext>()
     .AddRoles<IdentityRole>()
     .AddDefaultTokenProviders();
+
+builder.Services
+    .AddAuthentication()
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+    {
+        var jwt = builder.Configuration.GetSection("Jwt");
+        var key = jwt["Key"] ?? throw new InvalidOperationException("Falta Jwt:Key en appsettings.json");
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidateLifetime = true,
+            ValidIssuer = jwt["Issuer"],
+            ValidAudience = jwt["Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
+            NameClaimType = ClaimTypes.NameIdentifier,
+            RoleClaimType = ClaimTypes.Role
+        };
+    });
 
 var app = builder.Build();
 

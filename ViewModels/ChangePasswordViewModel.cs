@@ -4,21 +4,20 @@ namespace HelpDeskWeb.ViewModels
 {
     public class ChangePasswordViewModel
     {
-        [Required(ErrorMessage ="Requiere Email")]
+        [Required(ErrorMessage = "Requiere Email")]
         [EmailAddress]
-        public required string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Requiere Contraseña")]
         [StringLength(40, MinimumLength = 8, ErrorMessage = "Minimo 8 caracteres")]
         [DataType(DataType.Password)]
-        [Display(Name = "New Password")]
-        [Compare("Confirmar contraseña", ErrorMessage ="No coincide contraseña")]
-        public required string NewPassword { get; set; }
+        [Display(Name = "Nueva contraseña")]
+        public string NewPassword { get; set; } = string.Empty;
 
-        [Required(ErrorMessage ="Requiere confirmar contreaseña")]
+        [Required(ErrorMessage = "Requiere confirmar contraseña")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirme la contraseña")]
-        public required string ConfirmPassword { get; set; }
-
+        [Compare("NewPassword", ErrorMessage = "No coincide contraseña")]
+        public string ConfirmPassword { get; set; } = string.Empty;
     }
 }

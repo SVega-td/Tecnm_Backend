@@ -57,7 +57,13 @@
                         @if (User.IsInRole("Usuario"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Home" asp-action="User">User</a>
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="User">User</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Ticket" asp-action="MyTickets">Mis Tickets</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Ticket" asp-action="CreateUserTicket">Crear Ticket</a>
                             </li>
                         }
                     </ul>
