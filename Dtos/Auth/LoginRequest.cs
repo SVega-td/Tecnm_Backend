@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
 namespace HelpDeskWeb.Dtos.Auth
 {
     public class LoginRequest

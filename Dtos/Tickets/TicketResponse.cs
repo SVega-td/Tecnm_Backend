@@ -2,7 +2,7 @@
 
 namespace HelpDeskWeb.Dtos.Tickets
 {
-    public class TicketResponse : Controller
+    public class TicketResponse
     {
             public int Id { get; set; }
             public string TicketNumber { get; set; } = string.Empty;

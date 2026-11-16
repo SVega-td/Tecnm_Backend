@@ -95,7 +95,7 @@ namespace HelpDeskWeb.Controllers.Api
 
         // AGREGAR: ticket ligado al usuario autenticado
         [HttpPost]
-        public async Task<ActionResult<TicketResponse>> CreateMyTicket([FromForm] CreateTicketRequest request)
+        public async Task<ActionResult<TicketResponse>> CreateMyTicket([FromBody] CreateTicketRequest request)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrWhiteSpace(userId))
